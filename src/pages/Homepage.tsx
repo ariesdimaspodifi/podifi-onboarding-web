@@ -4,14 +4,16 @@ import Button from "../components/Button";
 import NotificationMsg from "../components/NotificationMsg";
 import ItemCard from "../components/ItemCard";
 
+import { IMenuItem, IMenuItemResponse } from "../dto/menuItem.dto";
+
 const Homepage: FunctionComponent = () => {
   const navigate = useNavigate();
-  const [menuItems, setMenuItems] = useState([]);
+  const [menuItems, setMenuItems] = useState<IMenuItem[]>([]);
 
   const fetchMenuItems = async () => {
-    const response = await fetch(process.env.BASE_API_URL + "/data");
-    const data = await response.json();
-    setMenuItems(data);
+    const response = await fetch(process.env.REACT_APP_BASE_API_URL + "/data");
+    const data: IMenuItemResponse = await response.json();
+    setMenuItems(data.data);
   };
 
   useEffect(() => {
@@ -58,16 +60,14 @@ const Homepage: FunctionComponent = () => {
             src="/separator@2x.png"
           />
         </div>
-        {/* <NotificationMsg
-          notificationIconFrame="/notificationiconsuccess.png"
-          notificationMainMessage="Order successfully placed"
-        /> */}
+       
         {menuItems.length === 0 && <NotificationMsg
-          notificationIconFrame="/notificationiconwarning.png"
+          notificationBackgroundColor="pink"
+          notificationIconFrame="/notificationiconerror.png"
           notificationMainMessage="Nothing Currently listed as available, Please refresh the menu"
         />}
         {menuItems.length > 0 && <section className="self-stretch flex flex-row flex-wrap items-start justify-start py-6 px-px gap-[30px]">
-          {menuItems.map((item:any, key:number) => (
+          {menuItems.map((item:IMenuItem, key:number) => (
             <ItemCard
               key={key}
               menuItemCode={item?.id}

@@ -3,7 +3,7 @@ import { FunctionComponent, useMemo, type CSSProperties } from "react";
 type ItemCardType = {
   menuItemCode?: string;
   itemName?: string;
-  itemPrice?: string;
+  itemPrice?: number;
   itemImage?: string;
 
   /** Style props */
@@ -19,7 +19,7 @@ type ItemCardType = {
 const ItemCard: FunctionComponent<ItemCardType> = ({
   menuItemCode,
   itemName = "Bigs Mac",
-  itemPrice = "$9.99",
+  itemPrice = 9.99,
   itemImage = "/itemcarditemimage@2x.png",
   itemCardItemImageFrameWidth,
   itemCardItemImageIconWidth,
