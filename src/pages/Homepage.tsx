@@ -9,7 +9,7 @@ const Homepage: FunctionComponent = () => {
   const [menuItems, setMenuItems] = useState([]);
 
   const fetchMenuItems = async () => {
-    const response = await fetch("http://localhost:3000/data");
+    const response = await fetch(process.env.BASE_API_URL + "/data");
     const data = await response.json();
     setMenuItems(data);
   };
@@ -62,7 +62,11 @@ const Homepage: FunctionComponent = () => {
           notificationIconFrame="/notificationiconsuccess.png"
           notificationMainMessage="Order successfully placed"
         /> */}
-        <section className="self-stretch flex flex-row flex-wrap items-start justify-start py-6 px-px gap-[30px]">
+        {menuItems.length === 0 && <NotificationMsg
+          notificationIconFrame="/notificationiconwarning.png"
+          notificationMainMessage="Nothing Currently listed as available, Please refresh the menu"
+        />}
+        {menuItems.length > 0 && <section className="self-stretch flex flex-row flex-wrap items-start justify-start py-6 px-px gap-[30px]">
           {menuItems.map((item:any, key:number) => (
             <ItemCard
               key={key}
@@ -77,7 +81,7 @@ const Homepage: FunctionComponent = () => {
               onItemCardContainerClick={onItemCardContainerClick}
             />
           ))}
-        </section>
+        </section>}
       </main>
     </div>
   );
