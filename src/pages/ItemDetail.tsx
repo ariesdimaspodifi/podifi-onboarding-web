@@ -14,7 +14,7 @@ const ItemDetail: FunctionComponent = () => {
   const { menuItemCode } = useParams();
 
   const fetchItemDetail = async () => {
-    const response = await axios.get(`http://localhost:3000/data/${menuItemCode}`);
+    const response = await axios.get(`${process.env.REACT_APP_BASE_API_URL}/menu/${menuItemCode}`);
     setItemDetail(response.data);
   };
 

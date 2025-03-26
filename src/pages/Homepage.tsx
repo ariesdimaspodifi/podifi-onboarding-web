@@ -11,9 +11,9 @@ const Homepage: FunctionComponent = () => {
   const [menuItems, setMenuItems] = useState<IMenuItem[]>([]);
 
   const fetchMenuItems = async () => {
-    const response = await fetch(process.env.REACT_APP_BASE_API_URL + "/data");
-    const data: IMenuItemResponse = await response.json();
-    setMenuItems(data.data);
+    const response = await fetch(process.env.REACT_APP_BASE_API_URL + "/menu");
+    const data = await response.json();
+    setMenuItems(data);
   };
 
   useEffect(() => {
@@ -70,7 +70,7 @@ const Homepage: FunctionComponent = () => {
           {menuItems.map((item:IMenuItem, key:number) => (
             <ItemCard
               key={key}
-              menuItemCode={item?.id}
+              menuItemCode={item?.itemId}
               itemName={item?.name}
               itemPrice={item?.price}
               itemImage={item?.image}
